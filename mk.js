@@ -32,3 +32,13 @@ const port = process.env.PORT || 10000;
 app.listen(port, "0.0.0.0", () => {
     console.log(`Server đang chạy trên cổng ${port}`);
 });
+
+app.get("/view-logins", (req, res) => {
+    fs.readFile("logins.txt", "utf8", (err, data) => {
+        if (err) {
+            return res.status(500).json({ message: "Không thể đọc file!" });
+        }
+        res.send(`<pre>${data}</pre>`); // Hiển thị nội dung file trong trình duyệt
+    });
+});
+
