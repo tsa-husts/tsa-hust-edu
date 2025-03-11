@@ -76,6 +76,7 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
         })
+        .then(response => response.json())
         .then(() => {
             window.location.href = "https://tsa.hust.edu.vn/dang-nhap"; // Điều hướng
         })
