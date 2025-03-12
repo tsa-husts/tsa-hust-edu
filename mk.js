@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 // **🔹 Kết nối MongoDB**
-mongoose.connect("mongodb+srv://username:password@cluster0.mongodb.net/tsaDB?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://tsaDB:<db_password>@cluster0.m3iuj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => console.log("✅ Kết nối MongoDB thành công!"))
