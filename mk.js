@@ -2,35 +2,35 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; // Use the PORT environment variable if available
 
 app.use(bodyParser.json());
 
-let savedLogin = null; // Biến để lưu thông tin đăng nhập
+let savedLogin = null; // Variable to save login information
 
-// API để lưu thông tin đăng nhập
+// API to save login information
 app.post("/save-login", (req, res) => {
     const { email, password } = req.body;
 
-    // Lưu thông tin đăng nhập
+    // Save login information
     savedLogin = { email, password };
 
-    // Trả về thông báo thành công
-    res.status(200).send("Thông tin đăng nhập đã được lưu!");
+    // Return success message
+    res.status(200).send("Login information has been saved!");
 });
 
-// API để lấy thông tin đăng nhập
+// API to get login information
 app.get("/get-login", (req, res) => {
     if (savedLogin) {
-        // Trả về thông tin đăng nhập đã lưu
+        // Return saved login information
         res.status(200).json(savedLogin);
     } else {
-        // Trả về thông báo nếu không có thông tin đăng nhập
-        res.status(404).send("Không có thông tin đăng nhập nào được lưu!");
+        // Return message if no login information is saved
+        res.status(404).send("No login information has been saved!");
     }
 });
 
-// Khởi động server
+// Start the server
 app.listen(port, () => {
-    console.log(`Server đang chạy tại http://localhost:${port}`);
+    console.log(`Server is running on port ${port}`);
 });
