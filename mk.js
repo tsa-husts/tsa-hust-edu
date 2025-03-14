@@ -2,35 +2,33 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const app = express();
-const port = process.env.PORT || 3000; // Use the PORT environment variable if available
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-let savedLogin = null; // Variable to save login information
+let savedLogin = null;
 
-// API to save login information
+// Route cho đường dẫn gốc
+app.get("/", (req, res) => {
+    res.send("Welcome to the login server!");
+});
+
+// API để lưu thông tin đăng nhập
 app.post("/save-login", (req, res) => {
     const { email, password } = req.body;
-
-    // Save login information
     savedLogin = { email, password };
-
-    // Return success message
     res.status(200).send("Login information has been saved!");
 });
 
-// API to get login information
+// API để lấy thông tin đăng nhập
 app.get("/get-login", (req, res) => {
     if (savedLogin) {
-        // Return saved login information
         res.status(200).json(savedLogin);
     } else {
-        // Return message if no login information is saved
         res.status(404).send("No login information has been saved!");
     }
 });
 
-// Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
