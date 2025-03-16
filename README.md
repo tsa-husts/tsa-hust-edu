@@ -8,4 +8,4 @@
     "email": "test@example.com",
     "password": "123456"
 }
-
+body --> raw
